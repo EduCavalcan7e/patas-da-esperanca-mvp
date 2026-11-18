@@ -17,3 +17,12 @@ def test_vitrine_publica_e_bloqueio_sem_jwt():
         "animal_id": 1, "nome_vacina": "Antirrábica", "data_aplicacao": "2026-11-17", "proxima_dose": "2027-11-17"
     })
     assert res_sem_auth.status_code == 401
+
+def test_registro_vacina_e_adocao_autenticados():
+    headers = {"Authorization": "Bearer token_jwt_valido_patas_2026"}
+    res_vacina = client.post("/api/prontuario/vacinas", headers=headers, json={
+        "animal_id": 1, "nome_vacina": "V10", "data_aplicacao": "2026-11-17", "proxima_dose": "2027-11-17"
+    })
+    assert res_vacina.status_code == 201
+    res_adocao = client.patch("/api/animais/1/adotar", headers=headers)
+    assert res_adocao.status_code == 200
