@@ -16,5 +16,7 @@ jobs:
           python-version: "3.11"
       - name: Instalar dependências
         run: pip install fastapi httpx pytest
-      - name: Executar testes automatizados
-        run: PYTHONPATH=backend pytest -v backend/tests
+     - name: Instalar dependências
+        run: pip install fastapi httpx pytest pytest-cov
+      - name: Executar testes automatizados com cobertura
+        run: PYTHONPATH=backend pytest -v --cov=backend/app --cov-report=term-missing backend/tests
